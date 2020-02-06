@@ -1,6 +1,6 @@
 import 'react-native'
 import renderer from 'react-test-renderer'
-import { App } from './app'
+import { App } from './screens/App'
 import React from 'react'
 
 test('renders correctly', () => {
