@@ -10,15 +10,13 @@ import {
     View,
 } from 'react-native';
 import {
-    createAppContainer,
     NavigationParams,
     NavigationScreenProp,
     NavigationState
 } from "react-navigation";
 
 import SafeAreaView from 'react-native-safe-area-view';
-import {createStackNavigator} from "react-navigation-stack";
-import Welcome from "./Welcome";
+
 
 
 interface LoginProps {
@@ -30,7 +28,7 @@ interface IState {
 }
 
 
-class App extends Component<LoginProps, IState> {
+export default class Login extends Component<LoginProps, IState> {
     constructor(props: LoginProps) {
         super(props);
         this.state = {
@@ -38,9 +36,9 @@ class App extends Component<LoginProps, IState> {
             password: '',
         }
     }
-     onPressOne = () => {
-         Alert.alert('Welcome ' + this.state.username)
-         this.props.navigation.navigate('Welcome',{ username :this.state.username})
+    onPressOne = () => {
+        Alert.alert('Welcome ' + this.state.username)
+        this.props.navigation.navigate('Welcome',{ username :this.state.username})
 
     };
 
@@ -95,10 +93,3 @@ const styles = StyleSheet.create({
         height: 250,
     },
 });
-
-const screen = createStackNavigator(
-    {
-        Login: App,
-        Welcome: Welcome
-    }, {initialRouteName: 'Login'});
-export default createAppContainer(screen);
