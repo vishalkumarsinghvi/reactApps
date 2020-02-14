@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-    Alert,
     Button,
     Image,
     ScrollView,
@@ -37,7 +36,6 @@ export default class Login extends Component<LoginProps, IState> {
         }
     }
     onPressOne = () => {
-        Alert.alert('Welcome ' + this.state.username)
         this.props.navigation.navigate('Welcome',{ username :this.state.username})
 
     };
