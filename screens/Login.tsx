@@ -1,26 +1,15 @@
 import React, {Component} from 'react';
-import {
-    Button,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
-} from 'react-native';
-import {
-    NavigationParams,
-    NavigationScreenProp,
-    NavigationState
-} from "react-navigation";
+import {Button, Image, ScrollView, StyleSheet, Text, TextInput, View,} from 'react-native';
+import {NavigationParams, NavigationScreenProp, NavigationState} from "react-navigation";
 
 import SafeAreaView from 'react-native-safe-area-view';
-
+import CircleProgress from "../components/CircleProgress";
 
 
 interface LoginProps {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 }
+
 interface IState {
     username: string,
     password: string,
@@ -35,14 +24,15 @@ export default class Login extends Component<LoginProps, IState> {
             password: '',
         }
     }
+
     onPressOne = () => {
-        this.props.navigation.navigate('Welcome',{ username :this.state.username})
+        this.props.navigation.navigate('Welcome', {username: this.state.username})
 
     };
 
     render() {
         return (
-            <ScrollView>
+            <ScrollView style={styles.scrollView}>
                 <SafeAreaView>
                     <View style={styles.main}>
                         <View>
@@ -56,9 +46,12 @@ export default class Login extends Component<LoginProps, IState> {
                                 Welcome to Connect
                             </Text>
                             <TextInput style={styles.textInput}
+                                       keyboardType={'email-address'}
                                        placeholder={'Username'}
+                                       autoFocus={true}
                                        onChangeText={value => this.setState({username: value})}/>
                             <TextInput style={styles.textInput}
+                                       keyboardType={'default'}
                                        placeholder={'Password'} secureTextEntry={true}
                                        onChangeText={value => this.setState({password: value})}/>
                             <View style={{marginTop: 60}}>
@@ -67,6 +60,7 @@ export default class Login extends Component<LoginProps, IState> {
                                 }}/>
                             </View>
                         </View>
+                        <CircleProgress/>
                     </View>
                 </SafeAreaView>
             </ScrollView>
@@ -76,9 +70,10 @@ export default class Login extends Component<LoginProps, IState> {
 }
 
 const styles = StyleSheet.create({
-    main: {
-        alignItems: 'center',
+    scrollView: {
         backgroundColor: 'white',
+    }, main: {
+        alignItems: 'center',
     },
     textInput: {
         fontSize: 20,
