@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Button, Image, ScrollView, StyleSheet, Text, TextInput, View,} from 'react-native';
-import {NavigationParams, NavigationScreenProp, NavigationState} from "react-navigation";
+import {Button, Image, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
 
 import SafeAreaView from 'react-native-safe-area-view';
-import CircleProgress from "../components/CircleProgress";
+import CircleProgress from '../components/CircleProgress';
 
 
 interface LoginProps {
@@ -13,6 +13,7 @@ interface LoginProps {
 interface IState {
     username: string,
     password: string,
+    ready: boolean,
 }
 
 
@@ -22,6 +23,7 @@ export default class Login extends Component<LoginProps, IState> {
         this.state = {
             username: '',
             password: '',
+            ready: false,
         }
     }
 
@@ -29,6 +31,20 @@ export default class Login extends Component<LoginProps, IState> {
         this.props.navigation.navigate('Welcome', {username: this.state.username})
 
     };
+
+    setUsername = (username: string) => {
+        let ready = false;
+        if (username.length > 0) {
+            ready = true
+        } else {
+            ready = false
+        }
+        this.setState({username, ready})
+    };
+
+    setPassword =()=>{
+
+    }
 
     render() {
         return (
@@ -49,18 +65,17 @@ export default class Login extends Component<LoginProps, IState> {
                                        keyboardType={'email-address'}
                                        placeholder={'Username'}
                                        autoFocus={true}
-                                       onChangeText={value => this.setState({username: value})}/>
+                                       onChangeText={this.setUsername}/>
                             <TextInput style={styles.textInput}
                                        keyboardType={'default'}
                                        placeholder={'Password'} secureTextEntry={true}
                                        onChangeText={value => this.setState({password: value})}/>
                             <View style={{marginTop: 60}}>
-                                <Button title={'Login'} onPress={() => {
-                                    this.onPressOne()
-                                }}/>
+                                <Button title={'Login'}
+                                        onPress={() => {this.onPressOne()}}/>
                             </View>
                         </View>
-                        <CircleProgress/>
+                        {this.state.ready && (<CircleProgress/>)}
                     </View>
                 </SafeAreaView>
             </ScrollView>

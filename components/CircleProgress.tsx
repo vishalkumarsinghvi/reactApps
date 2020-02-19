@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
-import {ActivityIndicator,} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 
-interface Iprops {
-}
 
-interface IState {
-}
-
-export default class CircleProgress extends Component<Iprops, IState> {
+export default class CircleProgress extends Component {
     render() {
         return (
-            <ActivityIndicator size={'small'} color={'#0000ff'}/>
+            <ActivityIndicator size={'large'} color={'#0000ff'}/>
         );
     }
 }
