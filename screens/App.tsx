@@ -6,6 +6,9 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Todos from './Todos';
 import Welcome from './Welcome';
 import Login from './Login';
+import React, {Component} from "react";
+import {Provider} from 'react-redux'
+import store from "../redux/store";
 
 
 const screen = createStackNavigator(
@@ -14,4 +17,16 @@ const screen = createStackNavigator(
         Welcome: Welcome,
         Todos: Todos,
     }, {initialRouteName: 'Login'});
-export default createAppContainer(screen);
+const AppContainer = createAppContainer(screen);
+
+class App extends Component {
+    render() {
+        return (
+            <Provider store={store}>
+                <AppContainer/>
+            </Provider>
+        );
+    }
+}
+
+export default App
