@@ -86,13 +86,6 @@ const mapStateToProps = (state: IState) => {
     return {username: state.username};
 };
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         // dispatching plain actions
-//         onPressOne: () => dispatch({ getLoginData }),
-//     }
-// }
-
 const styles = StyleSheet.create({
     scrollView: {
         backgroundColor: 'white',
