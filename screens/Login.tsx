@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import {Button, Image, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
-
 import SafeAreaView from 'react-native-safe-area-view';
 import CircleProgress from '../components/CircleProgress';
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {getLoginData} from "../redux/login/loginAction";
 
 
 interface LoginProps {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>,
+    dispatch: Dispatch,
 }
 
 interface IState {
@@ -16,19 +19,20 @@ interface IState {
     ready: boolean,
 }
 
-
-export default class Login extends Component<LoginProps, IState> {
+class Login extends Component<LoginProps, IState> {
     constructor(props: LoginProps) {
         super(props);
         this.state = {
-            username: '',
-            password: '',
+            username: "",
+            password: "",
             ready: false,
         }
     }
 
     onPressOne = () => {
-        this.props.navigation.navigate('Welcome', {username: this.state.username})
+        this.setState({ready: false});
+        this.props.dispatch(getLoginData(this.state.username));
+        this.props.navigation.navigate('Welcome')
 
     };
 
@@ -42,9 +46,9 @@ export default class Login extends Component<LoginProps, IState> {
         this.setState({username, ready})
     };
 
-    setPassword =()=>{
+    setPassword = () => {
 
-    }
+    };
 
     render() {
         return (
@@ -54,7 +58,7 @@ export default class Login extends Component<LoginProps, IState> {
                         <View>
                             <Image
                                 style={styles.imageLogo}
-                                source={{uri: 'https://cdn.vox-cdn.com/thumbor/VJeBdFTg7SkLvmHiTeAriHn09LU=/0x0:1980x1320/1820x1213/filters:focal(832x502:1148x818):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/65613211/microsoftedgenewlogo.5.jpg'}}
+                                source={{uri: 'https://images-na.ssl-images-amazon.com/images/I/51dIKfpRXdL.png'}}
                             />
                         </View>
                         <View>
@@ -72,7 +76,9 @@ export default class Login extends Component<LoginProps, IState> {
                                        onChangeText={value => this.setState({password: value})}/>
                             <View style={{marginTop: 60}}>
                                 <Button title={'Login'}
-                                        onPress={() => {this.onPressOne()}}/>
+                                        onPress={() => {
+                                            this.onPressOne()
+                                        }}/>
                             </View>
                         </View>
                         {this.state.ready && (<CircleProgress/>)}
@@ -83,6 +89,17 @@ export default class Login extends Component<LoginProps, IState> {
 
     }
 }
+
+const mapStateToProps = (state: IState) => {
+    return {username: state.username};
+};
+
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         // dispatching plain actions
+//         onPressOne: () => dispatch({ getLoginData }),
+//     }
+// }
 
 const styles = StyleSheet.create({
     scrollView: {
@@ -101,3 +118,5 @@ const styles = StyleSheet.create({
         height: 250,
     },
 });
+
+export default connect(mapStateToProps)(Login);

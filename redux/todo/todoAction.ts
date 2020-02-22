@@ -1,7 +1,9 @@
 import {GET_TODO} from "./todoTypes";
 
-const getTodo = () => {
+export const getTodo = (todolist: [], username: string) => {
     return {
-        type: GET_TODO
+        type: GET_TODO,
+        payload: todolist,
+        username: username
     }
 };

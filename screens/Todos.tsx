@@ -1,35 +1,41 @@
 import React, {Component} from 'react';
-import {Button, FlatList, Text, View} from 'react-native';
+import {Button, FlatList, SafeAreaView, Text, View} from 'react-native';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
 import CircleProgress from "../components/CircleProgress";
+import store from "../redux/store";
+import {Dispatch} from "redux";
+import {connect} from "react-redux";
+import {getTodo} from "../redux/todo/todoAction";
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-
+    dispatch: Dispatch
 }
 
 interface IState {
-    data: any,
+    todoList: any,
     loaded: boolean,
     error: any,
+    username: string,
 }
 
-export default class Todos extends Component<Props, IState> {
+class Todos extends Component<Props, IState> {
 
-    username = this.props.navigation.getParam('username', 'xyz');
     baseUrl = 'https://jsonplaceholder.typicode.com';
 
     constructor(props: any) {
         super(props);
         this.state = {
-            data: null,
+            todoList: [],
             loaded: false,
             error: null,
-        }
+            username: store.getState().todo.username
+        };
     }
 
+
     getTodo = () => {
-        this.setState({loaded: true});
+        this.setState({loaded: true, username: store.getState().login.username});
         let url = this.baseUrl + '/todos';
         let request = new Request(url, {method: 'GET'});
         fetch(request)
@@ -38,30 +44,46 @@ export default class Todos extends Component<Props, IState> {
             .catch()
     };
 
-    showData = (data: any) => {
+    showData = (todoList: []) => {
         let loaded = !this.state.loaded;
-        this.setState({data, loaded})
+        this.props.dispatch(getTodo(todoList, this.state.username));
+        this.setState({todoList, loaded})
     };
 
     render() {
         return (
-            <View>
-                <View style={{alignItems: 'center'}}>
-                    <Text>{this.username}</Text>
-                </View>
+            <SafeAreaView>
+                <View>
+                    <View style={{alignItems: 'center'}}>
+                        <Text>{this.state.username}</Text>
+                    </View>
 
-                <View>
-                    <Button title={'Get Todo'} onPress={this.getTodo}/>
-                </View>
-                <View>
-                    {this.state.loaded && <CircleProgress/>}
-                </View>
-                <View>
-                    <FlatList data={this.state.data}
-                              renderItem={({item}) => <Text>{item.id + ' ' + item.title}</Text>}/>
-                </View>
+                    <View>
+                        <Button title={'Get Todo'} onPress={this.getTodo}/>
+                    </View>
+                    <View>
+                        {this.state.loaded && <CircleProgress/>}
+                    </View>
+                    <View>
+                        <FlatList data={store.getState().todo.todoList}
+                                  renderItem={({item}) => <Text>{item.id + ' ' + item.title}</Text>}
+                                  legacyImplementation = {true}
+                                  />
+                    </View>
 
-            </View>
+                </View>
+            </SafeAreaView>
         );
     }
 }
+
+//this method is using as a set render() or this.setState furthere help like we can get data from redux to react
+const mapStateToProps = (state: any) => {
+    return {username: state.username, todoList: state.todoList}
+};
+
+// const mapDispatchToProps =(disptach) =>{
+//     return{ getTodo :()=> disptach(getTodo()) }
+// }
+
+export default connect(mapStateToProps)(Todos)
