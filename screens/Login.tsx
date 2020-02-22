@@ -3,9 +3,9 @@ import {Button, Image, ScrollView, StyleSheet, Text, TextInput, View} from 'reac
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
 import SafeAreaView from 'react-native-safe-area-view';
 import CircleProgress from '../components/CircleProgress';
-import {connect} from "react-redux";
-import {Dispatch} from "redux";
-import {getLoginData} from "../redux/login/loginAction";
+import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
+import {getLoginData} from '../redux/login/loginAction';
 
 
 interface LoginProps {
@@ -23,8 +23,8 @@ class Login extends Component<LoginProps, IState> {
     constructor(props: LoginProps) {
         super(props);
         this.state = {
-            username: "",
-            password: "",
+            username: '',
+            password: '',
             ready: false,
         }
     }
@@ -37,17 +37,9 @@ class Login extends Component<LoginProps, IState> {
     };
 
     setUsername = (username: string) => {
-        let ready = false;
-        if (username.length > 0) {
-            ready = true
-        } else {
-            ready = false
-        }
+        let ready: boolean;
+        ready = username.length > 0;
         this.setState({username, ready})
-    };
-
-    setPassword = () => {
-
     };
 
     render() {

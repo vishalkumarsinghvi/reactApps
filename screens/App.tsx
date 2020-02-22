@@ -6,9 +6,9 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Todos from './Todos';
 import Welcome from './Welcome';
 import Login from './Login';
-import React, {Component} from "react";
+import React, {Component} from 'react';
 import {Provider} from 'react-redux'
-import store from "../redux/store";
+import store from '../redux/store';
 
 
 const screen = createStackNavigator(
