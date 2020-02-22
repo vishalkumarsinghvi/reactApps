@@ -2,70 +2,39 @@ import React, {Component} from 'react';
 import {Button, FlatList, SafeAreaView, Text, View} from 'react-native';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
 import CircleProgress from '../components/CircleProgress';
-import store from '../redux/store';
-import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
-import {getTodo} from '../redux/todo/todoAction';
+import {fetchTodoFailure, fetchTodoList, fetchTodoRequest, fetchTodoSuccess} from '../redux/todo/todoAction';
+import {Dispatch} from "redux";
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-    dispatch: Dispatch
+    username:string,
+    loaded:boolean,
+    todoList:[],
+    dispatch:Dispatch,
 }
 
-interface IState {
-    todoList: any,
-    loaded: boolean,
-    error: any,
-    username: string,
-}
-
-class Todos extends Component<Props, IState> {
-
-    baseUrl = 'https://jsonplaceholder.typicode.com';
+class Todos extends Component<Props> {
 
     constructor(props: any) {
         super(props);
-        this.state = {
-            todoList: [],
-            loaded: false,
-            error: null,
-            username: store.getState().todo.username,
-        };
     }
-
-
-    getTodo = () => {
-        this.setState({loaded: true, username: store.getState().login.username});
-        const url = this.baseUrl + '/todos';
-        const request = new Request(url, {method: 'GET'});
-        fetch(request)
-            .then(response => response.json())
-            .then(this.showData)
-            .catch()
-    };
-
-    showData = (todoList: []) => {
-        const loaded = !this.state.loaded;
-        this.props.dispatch(getTodo(todoList, this.state.username));
-        this.setState({todoList, loaded})
-    };
 
     render() {
         return (
             <SafeAreaView>
                 <View>
                     <View style={{alignItems: 'center'}}>
-                        <Text>{this.state.username}</Text>
-                    </View>
-
-                    <View>
-                        <Button title={'Get Todo'} onPress={this.getTodo}/>
+                        <Text>{this.props.username}</Text>
                     </View>
                     <View>
-                        {this.state.loaded && <CircleProgress/>}
+                        <Button title={'Get Todo'} onPress={this.callTest}/>
                     </View>
                     <View>
-                        <FlatList data={store.getState().todo.todoList}
+                        {this.props.loaded && <CircleProgress/>}
+                    </View>
+                    <View>
+                        <FlatList data={this.props.todoList}
                                   renderItem={({item}) => <Text>{item.id + ' ' + item.title}</Text>}
                                   legacyImplementation={true}/>
                     </View>
@@ -74,11 +43,30 @@ class Todos extends Component<Props, IState> {
             </SafeAreaView>
         );
     }
+
+    callTest = () => {
+        this.props.dispatch(fetchTodoRequest());
+        const request = new Request('https://jsonplaceholder.typicode.com/todos', {method: 'GET'});
+        fetch(request)
+            .then(response => response.json())
+            .then(this.showData)
+            .catch(error=>this.props.dispatch(fetchTodoFailure(error)))
+    };
+
+    showData=(data:any)=>{
+        this.props.dispatch(fetchTodoSuccess(data))
+    }
+
 }
 
 // this method is using as a set render() or this.setState furthere help like we can get data from redux to react
-const mapStateToProps = (state: any) => {
-    return {username: state.username, todoList: state.todoList}
-};
+const mapStateToProps = (state:any) => {
+    return {
+        username: state.login.username,
+        loaded: state.todo.loaded,
+        error: state.todo.error,
+        todoList: state.todo.todoList
+    }
+}
 
 export default connect(mapStateToProps)(Todos)

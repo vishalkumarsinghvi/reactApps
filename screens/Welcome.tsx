@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Button, Text, View} from 'react-native';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
 import {Dispatch} from 'redux';
-import {getTodo} from '../redux/todo/todoAction';
 import {connect} from 'react-redux';
 import store from '../redux/store';
 
@@ -29,7 +28,7 @@ interface IState {
     }
 
     getTodo = () => {
-        this.props.dispatch(getTodo([],this.state.username));
+        // this.props.dispatch(getTodo([],this.state.username));
         this.props.navigation.navigate('Todos')
     };
 

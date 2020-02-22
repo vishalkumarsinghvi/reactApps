@@ -1,17 +1,31 @@
-import {GET_TODO} from "./todoTypes";
+import * as Actions from "./todoTypes";
 
 const initialState = {
+    loaded: false,
     todoList: [],
-    username:""
+    error: ''
 };
 
-const todoReducer = (state = initialState, action:any) => {
+const todoReducer = (state = initialState, action: any) => {
     switch (action.type) {
-        case GET_TODO:
+        case Actions.FETCH_TODO_REQUEST:
+            return {
+                ...state,
+                loaded: true,
+            };
+        case Actions.FETCH_TODO_SUCCESS:
             return {
                 ...state,
                 todoList: action.payload,
-                username: action.username,
+                loaded: false,
+                error: ''
+            };
+        case Actions.FETCH_TODO_FAILURE:
+            return {
+                ...state,
+                todoList: [],
+                loaded: false,
+                error: action.payload
             };
         default:
             return state
