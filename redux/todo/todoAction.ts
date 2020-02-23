@@ -4,7 +4,6 @@ import axios from 'axios';
 export const fetchTodoRequest = () => {
     return {
         type: FETCH_TODO_REQUEST,
-        // username: username
     }
 };
 
@@ -20,43 +19,23 @@ export const fetchTodoFailure = error => {
         type: FETCH_TODO_FAILURE,
         payloadL: error
     }
-}
+};
+// using fetch we can get todolist here
+export const fetchTodoList = (dispatch) => {
+    dispatch(fetchTodoRequest());
+    const request = new Request('https://jsonplaceholder.typicode.com/todos', {method: 'GET'});
+    fetch(request)
+        .then(response => response.json())
+        .then(data => dispatch(fetchTodoSuccess(data)))
+        .catch(error => dispatch(fetchTodoFailure(error)))
+};
 
-export const fetchTodoList = () => {
-    return (dispatch) => {
-        console.log('call start')
-        dispatch(fetchTodoRequest)
-        axios.get('https://jsonplaceholder.typicode.com/todos')
-            .then(response => {
-                console.log(response)
-                const todoList = response.data;
-                dispatch(fetchTodoSuccess(todoList))
-            })
-            .catch(error => {
-                const errorMessage = error.message;
-                dispatch(fetchTodoFailure(errorMessage))
-            })
-    }
-
-    // return (dispatch) => {
-    //     dispatch(fetchTodoRequest())
-    //     axios.get('https://jsonplaceholder.typicode.com/todos')
-    //         .then(function (response) {
-    //
-    //             // handle your response here, create an object/array/array of objects etc...
-    //             // and return it in dispatch(getToDosSuccess(data over here))
-    //
-    //             return(dispatch(fetchTodoSuccess(response.data)))
-    //         })
-    //         .catch(err => dispatch(fetchTodoFailure(err)))
-    // }
-
-    // return(dispatch)=> {
-    //     dispatch(fetchTodoRequest())
-    //     const request = new Request('https://jsonplaceholder.typicode.com/todos', {method: 'GET'});
-    //     fetch(request)
-    //         .then(response => response.json())
-    //         .then(data =>dispatch(fetchTodoFailure(data)))
-    //         .catch(error =>dispatch(fetchTodoFailure(error)))
-    // }
+// using fetch we can get todolist here
+export const getTodoDataFromAxios = (dispatch) => {
+    dispatch(fetchTodoRequest());
+    const request = new Request('https://jsonplaceholder.typicode.com/todos', {method: 'GET'});
+    axios.get(request)
+        .then(response => response.json())
+        .then(data => dispatch(fetchTodoSuccess(data)))
+        .catch(error => dispatch(fetchTodoFailure(error)))
 };

@@ -1,9 +1,9 @@
-import * as Actions from "./todoTypes";
+import * as Actions from './todoTypes';
 
 const initialState = {
     loaded: false,
     todoList: [],
-    error: ''
+    error: '',
 };
 
 const todoReducer = (state = initialState, action: any) => {
@@ -18,14 +18,14 @@ const todoReducer = (state = initialState, action: any) => {
                 ...state,
                 todoList: action.payload,
                 loaded: false,
-                error: ''
+                error: '',
             };
         case Actions.FETCH_TODO_FAILURE:
             return {
                 ...state,
                 todoList: [],
                 loaded: false,
-                error: action.payload
+                error: action.payload,
             };
         default:
             return state

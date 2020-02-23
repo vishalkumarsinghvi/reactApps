@@ -28,7 +28,6 @@ interface IState {
     }
 
     getTodo = () => {
-        // this.props.dispatch(getTodo([],this.state.username));
         this.props.navigation.navigate('Todos')
     };
 

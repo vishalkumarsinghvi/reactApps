@@ -3,15 +3,15 @@ import {Button, FlatList, SafeAreaView, Text, View} from 'react-native';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
 import CircleProgress from '../components/CircleProgress';
 import {connect} from 'react-redux';
-import {fetchTodoFailure, fetchTodoList, fetchTodoRequest, fetchTodoSuccess} from '../redux/todo/todoAction';
-import {Dispatch} from "redux";
+import {fetchTodoList, getTodoDataFromAxios} from '../redux/todo/todoAction';
+import {Dispatch} from 'redux';
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-    username:string,
-    loaded:boolean,
-    todoList:[],
-    dispatch:Dispatch,
+    username: string,
+    loaded: boolean,
+    todoList: [],
+    dispatch: Dispatch,
 }
 
 class Todos extends Component<Props> {
@@ -28,7 +28,7 @@ class Todos extends Component<Props> {
                         <Text>{this.props.username}</Text>
                     </View>
                     <View>
-                        <Button title={'Get Todo'} onPress={this.callTest}/>
+                        <Button title={'Get Todo'} onPress={getTodoDataFromAxios}/>
                     </View>
                     <View>
                         {this.props.loaded && <CircleProgress/>}
@@ -43,30 +43,20 @@ class Todos extends Component<Props> {
             </SafeAreaView>
         );
     }
-
-    callTest = () => {
-        this.props.dispatch(fetchTodoRequest());
-        const request = new Request('https://jsonplaceholder.typicode.com/todos', {method: 'GET'});
-        fetch(request)
-            .then(response => response.json())
-            .then(this.showData)
-            .catch(error=>this.props.dispatch(fetchTodoFailure(error)))
-    };
-
-    showData=(data:any)=>{
-        this.props.dispatch(fetchTodoSuccess(data))
-    }
-
 }
 
 // this method is using as a set render() or this.setState furthere help like we can get data from redux to react
-const mapStateToProps = (state:any) => {
+const mapStateToProps = (state: any) => {
     return {
         username: state.login.username,
         loaded: state.todo.loaded,
         error: state.todo.error,
-        todoList: state.todo.todoList
+        todoList: state.todo.todoList,
     }
-}
+};
 
-export default connect(mapStateToProps)(Todos)
+const mapDispatchToProps = (dispatch) => {
+    return {getTodoDataFromAxios: () => dispatch(getTodoDataFromAxios)}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todos)
