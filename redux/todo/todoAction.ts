@@ -1,5 +1,6 @@
 import {FETCH_TODO_FAILURE, FETCH_TODO_REQUEST, FETCH_TODO_SUCCESS} from "./todoTypes";
 import axios from 'axios';
+import {Dispatch} from "redux";
 
 export const fetchTodoRequest = () => {
     return {
@@ -28,7 +29,7 @@ export const fetchTodoList = (dispatch) => {
         .then(response => response.json())
         .then(data => dispatch(fetchTodoSuccess(data)))
         .catch(error => dispatch(fetchTodoFailure(error)))
-};
+}
 
 // using fetch we can get todolist here
 export const getTodoDataFromAxios = (dispatch) => {
