@@ -39,7 +39,7 @@ interface IState {
                 </View>
 
                 <View>
-                    <Button title={'Todos'} onPress={this.getTodo}/>
+                    <Button title={'Using Redux-Saga Get Todos list'} onPress={this.getTodo}/>
                 </View>
 
             </View>

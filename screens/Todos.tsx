@@ -3,8 +3,8 @@ import {Button, FlatList, SafeAreaView, Text, View} from 'react-native';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
 import CircleProgress from '../components/CircleProgress';
 import {connect} from 'react-redux';
-import {fetchTodoList} from '../redux/todo/todoAction';
-import {Dispatch} from 'redux';
+import {bindActionCreators, Dispatch} from 'redux';
+import {fetchTodoRequest} from '../redux/todo/todoAction';
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -28,7 +28,7 @@ class Todos extends Component<Props> {
                         <Text>{this.props.username}</Text>
                     </View>
                     <View>
-                        <Button title={'Get Todo'} onPress={this.props.fetchTodoList}/>
+                        <Button title={'Get Todo'} onPress={this.props.getTodoList}/>
                     </View>
                     <View>
                         {this.props.loaded && <CircleProgress/>}
@@ -56,7 +56,9 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {fetchTodoList: () => dispatch(fetchTodoList)}
+    return {
+       getTodoList:bindActionCreators(fetchTodoRequest,dispatch),
+    }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Todos)
+export default connect(mapStateToProps,mapDispatchToProps)(Todos)

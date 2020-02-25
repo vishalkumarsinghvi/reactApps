@@ -1,6 +1,5 @@
-import {FETCH_TODO_FAILURE, FETCH_TODO_REQUEST, FETCH_TODO_SUCCESS} from "./todoTypes";
+import {FETCH_TODO_FAILURE, FETCH_TODO_REQUEST, FETCH_TODO_SUCCESS} from './todoTypes';
 import axios from 'axios';
-import {Dispatch} from "redux";
 
 export const fetchTodoRequest = () => {
     return {
@@ -11,14 +10,14 @@ export const fetchTodoRequest = () => {
 export const fetchTodoSuccess = (todoList) => {
     return {
         type: FETCH_TODO_SUCCESS,
-        payload: todoList
+        payload: todoList,
     }
 };
 
 export const fetchTodoFailure = error => {
     return {
         type: FETCH_TODO_FAILURE,
-        payloadL: error
+        payloadL: error,
     }
 };
 // using fetch we can get todolist here
