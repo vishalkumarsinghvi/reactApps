@@ -14,6 +14,7 @@ import Todos from './Todos';
 import Welcome from './Welcome';
 import Login from './Login';
 import Splash from './Splash';
+import Radio from "./Radio";
 
 
 // const tab1 = createStackNavigator(
@@ -66,6 +67,19 @@ const TabNavigator = createMaterialBottomTabNavigator(
                 activeColor: '#615af6',
                 inactiveColor: '#46f6d7',
                 barStyle: {backgroundColor: '#67baf6'},
+            }
+        },
+        Radio: {
+            screen: Radio,
+            navigationOptions: {
+                tabBarLabel: 'Radio',
+                tabBarIcon: ({tintColor}) => (
+                    <View>
+                        <Icon style={[{color: tintColor}]} size={25} name={'ios-radio'}/>
+                    </View>),
+                activeColor: '#611af6',
+                inactiveColor: '#4616d7',
+                barStyle: {backgroundColor: '#17FFf6'},
             }
         },
     },

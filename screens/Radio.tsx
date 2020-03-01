@@ -4,24 +4,27 @@ import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-nav
 import CircleProgress from '../components/CircleProgress';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
-import {fetchTodoRequest} from '../redux/todo/todoAction';
+import {fetchRadioRequest} from "../redux/radio/radioAction";
+import {RadioComponent} from "../components/RadioComponent";
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>,
     username: string,
     loaded: boolean,
-    todoList: [],
+    radioList: [],
     dispatch: Dispatch,
-    getTodoList():void,
+
+    getRadioList(): void,
 }
 
-class Todos extends Component<Props> {
+class Radio extends Component<Props> {
 
     constructor(props: any) {
         super(props);
     }
 
     render() {
+        console.log("render calling", this.props.radioList);
         return (
             <SafeAreaView>
                 <View>
@@ -29,14 +32,16 @@ class Todos extends Component<Props> {
                         <Text>{this.props.username}</Text>
                     </View>
                     <View>
-                        <Button title={'Get Todo'} onPress={this.props.getTodoList}/>
+                        <Button title={'Get Radio List'} onPress={this.props.getRadioList}/>
                     </View>
                     <View>
                         {this.props.loaded && <CircleProgress/>}
                     </View>
-                    <View>
-                        <FlatList data={this.props.todoList}
-                                  renderItem={({item}) => <Text>{`${item.id} ${' '} ${item.title}`}</Text>}
+                    <View style={{width: '100%', height: '100%'}}>
+                        <FlatList data={this.props.radioList.stationList}
+                                  renderItem={({item}) => <RadioComponent
+                                      title={item.title}
+                                      url={item.url}/>}
                                   legacyImplementation={true}/>
                     </View>
 
@@ -46,21 +51,20 @@ class Todos extends Component<Props> {
     }
 }
 
-
 // this method is using as a set render() or this.setState furthere help like we can get data from redux to react
 const mapStateToProps = (state: any) => {
     return {
         username: state.login.username,
-        loaded: state.todo.loaded,
-        error: state.todo.error,
-        todoList: state.todo.todoList,
+        loaded: state.radio.loaded,
+        error: state.radio.error,
+        radioList: state.radio.radioList,
     }
 };
 
-const mapDispatchToProps = (dispatch:Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-       getTodoList:bindActionCreators(fetchTodoRequest,dispatch),
+        getRadioList: bindActionCreators(fetchRadioRequest, dispatch),
     }
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(Todos)
+export default connect(mapStateToProps, mapDispatchToProps)(Radio)

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Alert, Button, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
 import CircleProgress from '../components/CircleProgress';
 import {connect} from 'react-redux';
@@ -29,16 +29,21 @@ class Login extends Component<LoginProps, IState> {
     }
 
     onPressOne = () => {
-        this.setState({ready: false});
-        this.props.dispatch(getLoginData(this.state.username));
-        this.props.navigation.navigate('Welcome')
-
+        if (this.state.username === this.state.password) {
+            this.setState({ready: false});
+            this.props.dispatch(getLoginData(this.state.username));
+            this.props.navigation.navigate('Welcome')
+        } else {
+            this.setState({ready: false});
+            Alert.alert('Please enter username and password same');
+        }
     };
 
     setUsername = (username: string) => {
-        let ready: boolean;
-        ready = username.length > 0;
-        this.setState({username, ready})
+        this.setState({username})
+    };
+    setPassword = (password: string) => {
+        this.setState({password})
     };
 
     render() {
@@ -64,7 +69,7 @@ class Login extends Component<LoginProps, IState> {
                             <TextInput style={styles.textInput}
                                        keyboardType={'default'}
                                        placeholder={'Password'} secureTextEntry={true}
-                                       onChangeText={value => this.setState({password: value})}/>
+                                       onChangeText={this.setPassword}/>
                             <View style={{marginTop: 60}}>
                                 <Button title={'Login'}
                                         onPress={() => {
@@ -75,7 +80,7 @@ class Login extends Component<LoginProps, IState> {
                         {this.state.ready && (<CircleProgress/>)}
                     </View>
 
-            </SafeAreaView>
+                </SafeAreaView>
             </ScrollView>
         );
 

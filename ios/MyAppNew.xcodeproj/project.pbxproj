@@ -52,6 +52,7 @@
 		CCD27160255F420EA44BBCC4 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58CDECB38DAB47E38BA0A7FA /* Octicons.ttf */; };
 		CE9C8454AAAF401989B979B9 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 513F3400FD7F44B3B12FC0D7 /* Zocial.ttf */; };
 		D37632FE245848BBB87F13B2 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 176E944188CD443E8E68B691 /* MaterialCommunityIcons.ttf */; };
+		7EAFB4FE8D6E48A3A696720D /* libRNAudioPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E63F4A7C305481FA83798B6 /* libRNAudioPlayer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,8 @@
 		F5CF27AC1E56AE9B8DB1244E /* Pods-MyAppNewTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyAppNewTests.release.xcconfig"; path = "Target Support Files/Pods-MyAppNewTests/Pods-MyAppNewTests.release.xcconfig"; sourceTree = "<group>"; };
 		F5CF7EABFBC6428EA56C2A87 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		F8E5FF04FBBC439C88369706 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		94FF4856D73A4A8FB988066C /* RNAudioPlayer.xcodeproj */ = {isa = PBXFileReference; name = "RNAudioPlayer.xcodeproj"; path = "../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		5E63F4A7C305481FA83798B6 /* libRNAudioPlayer.a */ = {isa = PBXFileReference; name = "libRNAudioPlayer.a"; path = "libRNAudioPlayer.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53F5D879FC2611B8547F5CCC /* libPods-MyAppNew.a in Frameworks */,
+				7EAFB4FE8D6E48A3A696720D /* libRNAudioPlayer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +236,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				94FF4856D73A4A8FB988066C /* RNAudioPlayer.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -791,6 +796,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyAppNew.app/MyAppNew";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Debug;
 		};
@@ -811,6 +824,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyAppNew.app/MyAppNew";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Release;
 		};
@@ -831,6 +852,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = MyAppNew;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Debug;
 		};
@@ -850,6 +875,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = MyAppNew;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Release;
 		};
@@ -878,6 +907,14 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Debug;
 		};
@@ -906,6 +943,14 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Release;
 		};
@@ -933,6 +978,14 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyAppNew-tvOS.app/MyAppNew-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Debug;
 		};
@@ -960,6 +1013,14 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyAppNew-tvOS.app/MyAppNew-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-streaming-audio-player/ios/RNAudioPlayer",
+				);
 			};
 			name = Release;
 		};
