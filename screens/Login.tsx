@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Button, Image, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
-import SafeAreaView from 'react-native-safe-area-view';
 import CircleProgress from '../components/CircleProgress';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
@@ -75,7 +74,8 @@ class Login extends Component<LoginProps, IState> {
                         </View>
                         {this.state.ready && (<CircleProgress/>)}
                     </View>
-                </SafeAreaView>
+
+            </SafeAreaView>
             </ScrollView>
         );
 

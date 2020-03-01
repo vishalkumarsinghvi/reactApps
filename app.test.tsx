@@ -1,11 +1,11 @@
 import 'react-native'
 import renderer from 'react-test-renderer'
-import { App } from './screens/App'
 import React from 'react'
+import App from './screens/App';
 
 test('renders correctly', () => {
     const tree = renderer.create(
-        <App />,
-    )
+        <App/>,
+    );
     expect(tree).toBeDefined()
-})
+});

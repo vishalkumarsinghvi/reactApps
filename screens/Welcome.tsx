@@ -1,30 +1,22 @@
 import React, {Component} from 'react';
-import {Button, Text, View} from 'react-native';
+import {Button, SafeAreaView, Text, View} from 'react-native';
 import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-navigation';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
-import store from '../redux/store';
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-    dispatch:Dispatch
+    dispatch: Dispatch,
+    username: string,
 }
 
-interface IState {
-    data: any,
-    username: string
-}
 /* get data from props navigation
 * username = this.props.navigation.getParam('username', 'xyz')
 * */
- class Welcome extends Component<Props, IState> {
+class Welcome extends Component<Props> {
 
     constructor(props: any) {
         super(props);
-        this.state = {
-            data: null,
-            username: store.getState().login.username,
-        }
     }
 
     getTodo = () => {
@@ -33,21 +25,23 @@ interface IState {
 
     render() {
         return (
-            <View>
-                <View style={{alignItems: 'center'}}>
-                    <Text>{this.state.username}</Text>
-                </View>
-
+            <SafeAreaView>
                 <View>
-                    <Button title={'Using Redux-Saga Get Todos list'} onPress={this.getTodo}/>
-                </View>
+                    <View style={{alignItems: 'center'}}>
+                        <Text>{this.props.username}</Text>
+                    </View>
 
-            </View>
+                    <View>
+                        <Button title={'Using Redux-Saga Get Todos list'} onPress={this.getTodo}/>
+                    </View>
+
+                </View>
+            </SafeAreaView>
         );
     }
 }
 
-const mapStateToProps = (state:IState) => {
-    return {username: state.username}
+const mapStateToProps = (state:any) => {
+    return {username: state.login.username}
 };
 export default connect(mapStateToProps)(Welcome)

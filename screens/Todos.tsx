@@ -12,6 +12,7 @@ interface Props {
     loaded: boolean,
     todoList: [],
     dispatch: Dispatch,
+    getTodoList():void,
 }
 
 class Todos extends Component<Props> {
@@ -35,7 +36,7 @@ class Todos extends Component<Props> {
                     </View>
                     <View>
                         <FlatList data={this.props.todoList}
-                                  renderItem={({item}) => <Text>{item.id + ' ' + item.title}</Text>}
+                                  renderItem={({item}) => <Text>{`${item.id} ${' '} ${item.title}`}</Text>}
                                   legacyImplementation={true}/>
                     </View>
 
@@ -55,7 +56,7 @@ const mapStateToProps = (state: any) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch:Dispatch) => {
     return {
        getTodoList:bindActionCreators(fetchTodoRequest,dispatch),
     }
