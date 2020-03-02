@@ -29,7 +29,7 @@ class Login extends Component<LoginProps, IState> {
     }
 
     onPressOne = () => {
-        if (this.state.username === this.state.password) {
+        if (this.state.username.toLowerCase() === this.state.password) {
             this.setState({ready: false});
             this.props.dispatch(getLoginData(this.state.username));
             this.props.navigation.navigate('Welcome')

@@ -4,8 +4,8 @@ import {NavigationParams, NavigationScreenProp, NavigationState} from 'react-nav
 import CircleProgress from '../components/CircleProgress';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
-import {fetchRadioRequest} from "../redux/radio/radioAction";
-import {RadioComponent} from "../components/RadioComponent";
+import {fetchRadioRequest} from '../redux/radio/radioAction';
+import {RadioComponent} from '../components/RadioComponent';
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -24,7 +24,6 @@ class Radio extends Component<Props> {
     }
 
     render() {
-        console.log("render calling", this.props.radioList);
         return (
             <SafeAreaView>
                 <View>

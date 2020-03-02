@@ -14,7 +14,7 @@ import Todos from './Todos';
 import Welcome from './Welcome';
 import Login from './Login';
 import Splash from './Splash';
-import Radio from "./Radio";
+import Radio from './Radio';
 
 
 // const tab1 = createStackNavigator(

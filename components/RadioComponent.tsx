@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
+import React, {Component} from 'react';
+import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 var Sound = require('react-native-sound');
 Sound.setCategory('Playback');
@@ -25,7 +25,6 @@ export class RadioComponent extends Component<Iprops, {}> {
                         <View style={style.radioContainer}>
                             <Text style={style.textColor}>{this.props.title}</Text>
                             <Icon style={style.icon} name={'ios-play'} size={50}
-                                // onPress={() => this.PlayMusic(this.props.title, this.props.url)}/>
                                   onPress={() => this.PlayMusic(this.props.title,this.props.url)}/>
                         </View>
 
@@ -38,14 +37,6 @@ export class RadioComponent extends Component<Iprops, {}> {
 
 
     PlayMusic = (title: string, url: string) => {
-        // const track = new Sound('https://www.soundjay.com/button/button-1.mp3',null, (e) => {
-        //     if (e) {
-        //         console.log(e)
-        //     } else {
-        //         track.play()
-        //     }
-        // })
-        //
         var whoosh = new Sound('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', null, (error) => {
             if (error) {
                 console.log('failed to load the sound', error);
